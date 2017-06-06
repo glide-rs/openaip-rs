@@ -147,7 +147,14 @@ impl fmt::Display for AltitudeLimit {
 }
 
 #[derive(Eq, PartialEq, Debug)]
-pub enum AltitudeReference { GND, MSL, STD }
+pub enum AltitudeReference {
+    /// Ground
+    GND,
+    /// Mean sea level
+    MSL,
+    /// Standard atmosphere
+    STD,
+}
 
 impl FromStr for AltitudeReference {
     type Err = ();
