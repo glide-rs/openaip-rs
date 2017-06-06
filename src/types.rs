@@ -94,6 +94,12 @@ pub struct AltitudeLimit {
     pub value: i32,
 }
 
+impl AltitudeLimit {
+    pub fn new(value: i32, unit: AltitudeUnit, reference: AltitudeReference) -> Self {
+        AltitudeLimit { reference: reference, unit: unit, value: value }
+    }
+}
+
 impl<'a> From<&'a Element> for AltitudeLimit {
     fn from(element: &Element) -> Self {
         let alt = element.get_child("ALT").unwrap();
