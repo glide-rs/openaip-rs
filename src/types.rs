@@ -193,13 +193,7 @@ impl<'a> From<&'a Element> for Geometry {
     fn from(element: &Element) -> Self {
         let polygon = element.get_child("POLYGON").unwrap();
         let ref text = polygon.clone().text.unwrap();
-        let points = text.split(",").map(|s| {
-            let parts: Vec<&str> = s.split_whitespace().collect();
-            Point {
-                longitude: parts[0].parse().unwrap(),
-                latitude: parts[1].parse().unwrap(),
-            }
-        });
+        let points = text.split(",").map(|s| s.parse().unwrap());
 
         Geometry::Polygon(points.collect())
     }
@@ -209,6 +203,18 @@ impl<'a> From<&'a Element> for Geometry {
 pub struct Point {
     pub longitude: f64,
     pub latitude: f64,
+}
+
+impl FromStr for Point {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, ()> {
+        let parts: Vec<&str> = s.split_whitespace().collect();
+        Ok(Point {
+            longitude: parts[0].parse().unwrap(),
+            latitude: parts[1].parse().unwrap(),
+        })
+    }
 }
 
 impl fmt::Debug for Point {
