@@ -24,10 +24,10 @@ impl<'a> From<&'a Element> for Airspace {
     fn from(element: &Element) -> Self {
         Airspace {
             category: element.attributes.get("CATEGORY").unwrap().parse().unwrap(),
-            version: element.get_child("VERSION").unwrap().clone().text.unwrap(),
-            id: element.get_child("ID").unwrap().clone().text.unwrap(),
-            country: element.get_child("COUNTRY").unwrap().clone().text.unwrap(),
-            name: element.get_child("NAME").unwrap().clone().text.unwrap(),
+            version: element.get_child("VERSION").unwrap().text.as_ref().unwrap().clone(),
+            id: element.get_child("ID").unwrap().text.as_ref().unwrap().clone(),
+            country: element.get_child("COUNTRY").unwrap().text.as_ref().unwrap().clone(),
+            name: element.get_child("NAME").unwrap().text.as_ref().unwrap().clone(),
             top: element.get_child("ALTLIMIT_TOP").unwrap().into(),
             bottom: element.get_child("ALTLIMIT_BOTTOM").unwrap().into(),
             geometry: element.get_child("GEOMETRY").unwrap().into(),
@@ -107,7 +107,7 @@ impl<'a> From<&'a Element> for AltitudeLimit {
         AltitudeLimit {
             reference: element.attributes.get("REFERENCE").unwrap().parse().unwrap(),
             unit: alt.attributes.get("UNIT").unwrap().parse().unwrap(),
-            value: alt.clone().text.unwrap().parse().unwrap(),
+            value: alt.text.as_ref().unwrap().parse().unwrap(),
         }
     }
 }
@@ -192,7 +192,7 @@ pub enum Geometry {
 impl<'a> From<&'a Element> for Geometry {
     fn from(element: &Element) -> Self {
         let polygon = element.get_child("POLYGON").unwrap();
-        let ref text = polygon.clone().text.unwrap();
+        let text = polygon.text.as_ref().unwrap();
         let points = text.split(",").map(|s| s.parse().unwrap());
 
         Geometry::Polygon(points.collect())
