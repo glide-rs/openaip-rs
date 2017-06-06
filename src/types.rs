@@ -1,3 +1,4 @@
+use std::fmt;
 use std::str::FromStr;
 
 use xmltree::Element;
@@ -157,8 +158,14 @@ impl<'a> From<&'a Element> for Geometry {
     }
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone)]
 pub struct Point {
     pub longitude: f64,
     pub latitude: f64,
+}
+
+impl fmt::Debug for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[{}, {}]", self.longitude, self.latitude)
+    }
 }
