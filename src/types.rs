@@ -112,6 +112,40 @@ impl<'a> From<&'a Element> for AltitudeLimit {
     }
 }
 
+impl fmt::Display for AltitudeLimit {
+    /// # Examples
+    ///
+    /// ```
+    /// # use openaip_parser::types::{AltitudeLimit, AltitudeReference, AltitudeUnit};
+    /// #
+    /// let limit = AltitudeLimit::new(4500, AltitudeUnit::Feet, AltitudeReference::MSL);
+    /// assert_eq!(format!("{}", limit), "4500ft MSL");
+    ///
+    /// let limit = AltitudeLimit::new(65, AltitudeUnit::FlightLevel, AltitudeReference::STD);
+    /// assert_eq!(format!("{}", limit), "FL65");
+    ///
+    /// let limit = AltitudeLimit::new(1500, AltitudeUnit::Feet, AltitudeReference::GND);
+    /// assert_eq!(format!("{}", limit), "1500ft GND");
+    ///
+    /// let limit = AltitudeLimit::new(0, AltitudeUnit::Feet, AltitudeReference::GND);
+    /// assert_eq!(format!("{}", limit), "GND");
+    /// ```
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.unit == AltitudeUnit::FlightLevel {
+            write!(f, "FL{}", self.value)
+        } else if self.reference == AltitudeReference::GND && self.value == 0 {
+            write!(f, "GND")
+        } else {
+            let suffix = match self.reference {
+                AltitudeReference::GND => "GND",
+                AltitudeReference::MSL => "MSL",
+                AltitudeReference::STD => "STD",
+            };
+            write!(f, "{}ft {}", self.value, suffix)
+        }
+    }
+}
+
 #[derive(Eq, PartialEq, Debug)]
 pub enum AltitudeReference { GND, MSL, STD }
 
