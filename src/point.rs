@@ -1,6 +1,8 @@
 use std::fmt;
 use std::str::FromStr;
 
+use Error;
+
 #[derive(Copy, Clone)]
 pub struct Point {
     pub longitude: f64,
@@ -8,13 +10,17 @@ pub struct Point {
 }
 
 impl FromStr for Point {
-    type Err = ();
+    type Err = Error;
 
-    fn from_str(s: &str) -> Result<Self, ()> {
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         let parts: Vec<&str> = s.split_whitespace().collect();
+        if parts.len() != 2 {
+            return Err(Error::InvalidPoint);
+        }
+
         Ok(Point {
-            longitude: parts[0].parse().unwrap(),
-            latitude: parts[1].parse().unwrap(),
+            longitude: parts[0].parse()?,
+            latitude: parts[1].parse()?,
         })
     }
 }
