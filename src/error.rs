@@ -13,6 +13,7 @@ pub enum Error {
     MissingText,
     IncompatibleDataFormatVersion(String),
     UnknownCategory(String),
+    UnknownAltitudeReference(String),
     InvalidPoint,
 }
 
@@ -28,6 +29,7 @@ impl fmt::Display for Error {
                 write!(f, "Incompatible DATAFORMAT version: {}", version)
             },
             Error::UnknownCategory(ref s) => write!(f, "Unknown airspace category: {}", s),
+            Error::UnknownAltitudeReference(ref s) => write!(f, "Unknown altitude reference: {}", s),
             Error::InvalidPoint => write!(f, "Invalid point"),
         }
     }
@@ -43,6 +45,7 @@ impl error::Error for Error {
             Error::MissingText => "Missing element text",
             Error::IncompatibleDataFormatVersion(..) => "Incompatible DATAFORMAT version",
             Error::UnknownCategory(..) => "Unknown airspace category",
+            Error::UnknownAltitudeReference(..) => "Unknown altitude reference",
             Error::InvalidPoint => "Invalid point",
         }
     }
