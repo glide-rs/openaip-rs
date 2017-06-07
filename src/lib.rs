@@ -16,7 +16,7 @@ use xml::ElementExt;
 pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
     let dom = Element::parse(r)?;
     if dom.name != "OPENAIP" {
-        return Err(Error::MissingOpenAipElement);
+        return Err(Error::MissingElement("OPENAIP"));
     }
 
     let data_format_version = dom.get_attr("DATAFORMAT")?;
