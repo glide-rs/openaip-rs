@@ -31,7 +31,7 @@ impl<'a> TryFrom<&'a Element> for Airspace {
             name: element.get_child("NAME").unwrap().text.as_ref().unwrap().clone(),
             top: element.get_child("ALTLIMIT_TOP").unwrap().into(),
             bottom: element.get_child("ALTLIMIT_BOTTOM").unwrap().into(),
-            geometry: element.get_child("GEOMETRY").unwrap().into(),
+            geometry: Geometry::try_from(element.get_child("GEOMETRY").unwrap())?,
         })
     }
 }
