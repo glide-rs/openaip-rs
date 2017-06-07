@@ -3,8 +3,14 @@ extern crate approx;
 
 extern crate openaip_parser;
 
-use openaip_parser::parse;
-use openaip_parser::types::*;
+use openaip_parser::{
+    parse,
+    Airspace,
+    AltitudeReference,
+    AltitudeUnit,
+    Category,
+    Geometry,
+};
 
 #[test]
 fn it_works() {

@@ -1,6 +1,13 @@
 extern crate xmltree;
 
-pub mod types;
+mod airspace;
+mod altitude_limit;
+mod altitude_reference;
+mod altitude_unit;
+mod category;
+mod file;
+mod geometry;
+mod point;
 mod error;
 mod try_from;
 mod xml;
@@ -10,9 +17,16 @@ use std::io::Read;
 use xmltree::Element;
 
 pub use error::Error;
+pub use airspace::Airspace;
+pub use category::Category;
+pub use file::File;
+pub use geometry::Geometry;
+pub use point::Point;
+pub use altitude_unit::AltitudeUnit;
+pub use altitude_reference::AltitudeReference;
+pub use altitude_limit::AltitudeLimit;
+use file::{File as OpenAipFile};
 use try_from::TryFrom;
-use types::{File as OpenAipFile};
-use types::*;
 use xml::ElementExt;
 
 pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
