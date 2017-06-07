@@ -14,6 +14,7 @@ pub enum Error {
     IncompatibleDataFormatVersion(String),
     UnknownCategory(String),
     UnknownAltitudeReference(String),
+    UnknownAltitudeUnit(String),
     InvalidPoint,
 }
 
@@ -30,6 +31,7 @@ impl fmt::Display for Error {
             },
             Error::UnknownCategory(ref s) => write!(f, "Unknown airspace category: {}", s),
             Error::UnknownAltitudeReference(ref s) => write!(f, "Unknown altitude reference: {}", s),
+            Error::UnknownAltitudeUnit(ref s) => write!(f, "Unknown altitude unit: {}", s),
             Error::InvalidPoint => write!(f, "Invalid point"),
         }
     }
@@ -46,6 +48,7 @@ impl error::Error for Error {
             Error::IncompatibleDataFormatVersion(..) => "Incompatible DATAFORMAT version",
             Error::UnknownCategory(..) => "Unknown airspace category",
             Error::UnknownAltitudeReference(..) => "Unknown altitude reference",
+            Error::UnknownAltitudeUnit(..) => "Unknown altitude unit",
             Error::InvalidPoint => "Invalid point",
         }
     }
