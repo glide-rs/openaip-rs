@@ -17,7 +17,7 @@ pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
         return Err(Error::MissingOpenAipElement);
     }
 
-    let data_format_version = dom.attributes.get("DATAFORMAT").unwrap();
+    let data_format_version = dom.attributes.get("DATAFORMAT").ok_or(Error::MissingAttribute("DATAFORMAT"))?;
     if data_format_version != "1.1" {
         return Err(Error::IncompatibleDataFormatVersion(data_format_version.clone()));
     }
