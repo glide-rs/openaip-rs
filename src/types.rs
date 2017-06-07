@@ -3,6 +3,8 @@ use std::str::FromStr;
 
 use xmltree::Element;
 
+use xml::ElementExt;
+
 #[derive(Default, Debug)]
 pub struct File {
     pub airspaces: Option<Vec<Airspace>>,
@@ -23,7 +25,7 @@ pub struct Airspace {
 impl<'a> From<&'a Element> for Airspace {
     fn from(element: &Element) -> Self {
         Airspace {
-            category: element.attributes.get("CATEGORY").unwrap().parse().unwrap(),
+            category: element.get_attr("CATEGORY").unwrap().parse().unwrap(),
             version: element.get_child("VERSION").unwrap().text.as_ref().unwrap().clone(),
             id: element.get_child("ID").unwrap().text.as_ref().unwrap().clone(),
             country: element.get_child("COUNTRY").unwrap().text.as_ref().unwrap().clone(),
@@ -105,8 +107,8 @@ impl<'a> From<&'a Element> for AltitudeLimit {
         let alt = element.get_child("ALT").unwrap();
 
         AltitudeLimit {
-            reference: element.attributes.get("REFERENCE").unwrap().parse().unwrap(),
-            unit: alt.attributes.get("UNIT").unwrap().parse().unwrap(),
+            reference: element.get_attr("REFERENCE").unwrap().parse().unwrap(),
+            unit: alt.get_attr("UNIT").unwrap().parse().unwrap(),
             value: alt.text.as_ref().unwrap().parse().unwrap(),
         }
     }
