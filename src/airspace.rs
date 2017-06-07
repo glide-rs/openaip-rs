@@ -25,13 +25,13 @@ impl<'a> TryFrom<&'a Element> for Airspace {
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
         Ok(Airspace {
             category: element.get_attr("CATEGORY")?.parse()?,
-            version: element.get_child("VERSION").unwrap().text.as_ref().unwrap().clone(),
-            id: element.get_child("ID").unwrap().text.as_ref().unwrap().clone(),
-            country: element.get_child("COUNTRY").unwrap().text.as_ref().unwrap().clone(),
-            name: element.get_child("NAME").unwrap().text.as_ref().unwrap().clone(),
-            top: element.get_child("ALTLIMIT_TOP").unwrap().into(),
-            bottom: element.get_child("ALTLIMIT_BOTTOM").unwrap().into(),
-            geometry: Geometry::try_from(element.get_child("GEOMETRY").unwrap())?,
+            version: element.get_element("VERSION")?.get_text()?.clone(),
+            id: element.get_element("ID")?.get_text()?.clone(),
+            country: element.get_element("COUNTRY")?.get_text()?.clone(),
+            name: element.get_element("NAME")?.get_text()?.clone(),
+            top: element.get_element("ALTLIMIT_TOP")?.into(),
+            bottom: element.get_element("ALTLIMIT_BOTTOM")?.into(),
+            geometry: Geometry::try_from(element.get_element("GEOMETRY")?)?,
         })
     }
 }
