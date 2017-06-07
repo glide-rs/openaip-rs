@@ -1,16 +1,18 @@
 extern crate xmltree;
 
 pub mod types;
+mod error;
 
 use std::io::Read;
 
-use xmltree::{Element, ParseError};
+use xmltree::Element;
 
+pub use error::Error;
 use types::{File as OpenAipFile};
 use types::*;
 
-pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, ParseError> {
-    let dom = Element::parse(r)?;
+pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
+    let dom = Element::parse(r).map_err(Error::Xml)?;
     if dom.name != "OPENAIP" {
         // error
     }
