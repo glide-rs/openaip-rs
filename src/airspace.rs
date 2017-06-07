@@ -29,8 +29,8 @@ impl<'a> TryFrom<&'a Element> for Airspace {
             id: element.get_element("ID")?.get_text()?.clone(),
             country: element.get_element("COUNTRY")?.get_text()?.clone(),
             name: element.get_element("NAME")?.get_text()?.clone(),
-            top: element.get_element("ALTLIMIT_TOP")?.into(),
-            bottom: element.get_element("ALTLIMIT_BOTTOM")?.into(),
+            top: AltitudeLimit::try_from(element.get_element("ALTLIMIT_TOP")?)?,
+            bottom: AltitudeLimit::try_from(element.get_element("ALTLIMIT_BOTTOM")?)?,
             geometry: Geometry::try_from(element.get_element("GEOMETRY")?)?,
         })
     }

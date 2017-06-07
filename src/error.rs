@@ -7,7 +7,8 @@ use xmltree;
 #[derive(Debug)]
 pub enum Error {
     Xml(xmltree::ParseError),
-    InvalidNumber(num::ParseFloatError),
+    InvalidIntNumber(num::ParseIntError),
+    InvalidFloatNumber(num::ParseFloatError),
     MissingElement(&'static str),
     MissingAttribute(&'static str),
     MissingText,
@@ -22,7 +23,8 @@ impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
             Error::Xml(ref err) => err.fmt(f),
-            Error::InvalidNumber(ref err) => err.fmt(f),
+            Error::InvalidIntNumber(ref err) => err.fmt(f),
+            Error::InvalidFloatNumber(ref err) => err.fmt(f),
             Error::MissingElement(ref name) => write!(f, "Missing <{}> element", name),
             Error::MissingAttribute(ref name) => write!(f, "Missing {} attribute", name),
             Error::MissingText => write!(f, "Missing element text"),
@@ -41,7 +43,8 @@ impl error::Error for Error {
     fn description(&self) -> &str {
         match *self {
             Error::Xml(ref err) => err.description(),
-            Error::InvalidNumber(ref err) => err.description(),
+            Error::InvalidIntNumber(ref err) => err.description(),
+            Error::InvalidFloatNumber(ref err) => err.description(),
             Error::MissingElement(..) => "Missing element",
             Error::MissingAttribute(..) => "Missing attribute",
             Error::MissingText => "Missing element text",
@@ -56,7 +59,8 @@ impl error::Error for Error {
     fn cause(&self) -> Option<&error::Error> {
         match *self {
             Error::Xml(ref err) => Some(err),
-            Error::InvalidNumber(ref err) => Some(err),
+            Error::InvalidIntNumber(ref err) => Some(err),
+            Error::InvalidFloatNumber(ref err) => Some(err),
             _ => None,
         }
     }
@@ -68,8 +72,14 @@ impl From<xmltree::ParseError> for Error {
     }
 }
 
+impl From<num::ParseIntError> for Error {
+    fn from(err: num::ParseIntError) -> Error {
+        Error::InvalidIntNumber(err)
+    }
+}
+
 impl From<num::ParseFloatError> for Error {
     fn from(err: num::ParseFloatError) -> Error {
-        Error::InvalidNumber(err)
+        Error::InvalidFloatNumber(err)
     }
 }

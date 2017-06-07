@@ -5,6 +5,8 @@ use xmltree::Element;
 use xml::ElementExt;
 use AltitudeUnit;
 use AltitudeReference;
+use Error;
+use try_from::TryFrom;
 
 #[derive(Debug)]
 pub struct AltitudeLimit {
@@ -19,15 +21,17 @@ impl AltitudeLimit {
     }
 }
 
-impl<'a> From<&'a Element> for AltitudeLimit {
-    fn from(element: &Element) -> Self {
-        let alt = element.get_child("ALT").unwrap();
+impl<'a> TryFrom<&'a Element> for AltitudeLimit {
+    type Err = Error;
 
-        AltitudeLimit {
-            reference: element.get_attr("REFERENCE").unwrap().parse().unwrap(),
-            unit: alt.get_attr("UNIT").unwrap().parse().unwrap(),
-            value: alt.text.as_ref().unwrap().parse().unwrap(),
-        }
+    fn try_from(element: &Element) -> Result<Self, Self::Err> {
+        let alt = element.get_element("ALT")?;
+
+        Ok(AltitudeLimit {
+            reference: element.get_attr("REFERENCE")?.parse()?,
+            unit: alt.get_attr("UNIT")?.parse()?,
+            value: alt.get_text()?.parse()?,
+        })
     }
 }
 
