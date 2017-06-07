@@ -3,6 +3,7 @@ use std::str::FromStr;
 
 use xmltree::Element;
 
+use error::Error;
 use try_from::TryFrom;
 use xml::ElementExt;
 
@@ -24,11 +25,11 @@ pub struct Airspace {
 }
 
 impl<'a> TryFrom<&'a Element> for Airspace {
-    type Err = ();
+    type Err = Error;
 
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
         Ok(Airspace {
-            category: element.get_attr("CATEGORY").unwrap().parse().unwrap(),
+            category: element.get_attr("CATEGORY")?.parse().unwrap(),
             version: element.get_child("VERSION").unwrap().text.as_ref().unwrap().clone(),
             id: element.get_child("ID").unwrap().text.as_ref().unwrap().clone(),
             country: element.get_child("COUNTRY").unwrap().text.as_ref().unwrap().clone(),
