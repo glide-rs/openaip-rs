@@ -13,6 +13,16 @@ pub enum AltitudeReference {
 impl FromStr for AltitudeReference {
     type Err = ();
 
+    /// # Examples
+    ///
+    /// ```
+    /// # use std::str::FromStr;
+    /// # use openaip_parser::AltitudeReference;
+    /// #
+    /// assert_eq!(AltitudeReference::from_str("GND").unwrap(), AltitudeReference::GND);
+    /// assert_eq!(AltitudeReference::from_str("STD").unwrap(), AltitudeReference::STD);
+    /// assert_eq!(AltitudeReference::from_str("MSL").unwrap(), AltitudeReference::MSL);
+    /// ```
     fn from_str(s: &str) -> Result<Self, ()> {
         match s {
             "GND" => Ok(AltitudeReference::GND),
