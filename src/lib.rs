@@ -2,6 +2,7 @@ extern crate xmltree;
 
 pub mod types;
 mod error;
+mod try_from;
 mod xml;
 
 use std::io::Read;
@@ -9,6 +10,7 @@ use std::io::Read;
 use xmltree::Element;
 
 pub use error::Error;
+use try_from::TryFrom;
 use types::{File as OpenAipFile};
 use types::*;
 use xml::ElementExt;
@@ -32,5 +34,5 @@ pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
 }
 
 fn convert_airspaces(airspaces: &Element) -> Vec<Airspace> {
-    airspaces.children.iter().map(|e| e.into()).collect()
+    airspaces.children.iter().map(|e| Airspace::try_from(e).unwrap()).collect()
 }
