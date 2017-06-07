@@ -14,10 +14,12 @@ impl<'a> TryFrom<&'a Element> for Geometry {
     type Err = Error;
 
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
-        let polygon = element.get_element("POLYGON")?;
-        let text = polygon.get_text()?;
-        let points = text.split(",").map(|s| s.parse().unwrap());
+        let points: Result<Vec<_>, _> = element.get_element("POLYGON")?
+            .get_text()?
+            .split(",")
+            .map(|s| s.parse())
+            .collect();
 
-        Ok(Geometry::Polygon(points.collect()))
+        Ok(Geometry::Polygon(points?))
     }
 }
