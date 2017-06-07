@@ -29,3 +29,9 @@ impl error::Error for Error {
         }
     }
 }
+
+impl From<xmltree::ParseError> for Error {
+    fn from(err: xmltree::ParseError) -> Error {
+        Error::Xml(err)
+    }
+}

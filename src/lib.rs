@@ -12,7 +12,7 @@ use types::{File as OpenAipFile};
 use types::*;
 
 pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
-    let dom = Element::parse(r).map_err(Error::Xml)?;
+    let dom = Element::parse(r)?;
     if dom.name != "OPENAIP" {
         // error
     }
