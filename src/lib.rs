@@ -2,6 +2,7 @@ extern crate xmltree;
 
 pub mod types;
 mod error;
+mod xml;
 
 use std::io::Read;
 
@@ -10,6 +11,7 @@ use xmltree::Element;
 pub use error::Error;
 use types::{File as OpenAipFile};
 use types::*;
+use xml::ElementExt;
 
 pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
     let dom = Element::parse(r)?;
@@ -17,7 +19,7 @@ pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
         return Err(Error::MissingOpenAipElement);
     }
 
-    let data_format_version = dom.attributes.get("DATAFORMAT").ok_or(Error::MissingAttribute("DATAFORMAT"))?;
+    let data_format_version = dom.get_attr("DATAFORMAT")?;
     if data_format_version != "1.1" {
         return Err(Error::IncompatibleDataFormatVersion(data_format_version.clone()));
     }
