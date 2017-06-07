@@ -45,7 +45,7 @@ fn it_works() {
     let ref airspaces = file.airspaces.as_ref().unwrap();
     assert_eq!(airspaces.len(), 1);
 
-    let ref airspace: Airspace = airspaces[0];
+    let airspace: &Airspace = airspaces[0].as_ref().unwrap();
     assert_eq!(airspace.category, Category::Wave);
     assert_eq!(airspace.version, "d59ffb1bd865bc7307dbb3a191f4d00dfef5529f");
     assert_eq!(airspace.id, "150668");

@@ -41,12 +41,10 @@ pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
     }
 
     let file = OpenAipFile {
-        airspaces: dom.get_child("AIRSPACES").map(convert_airspaces),
+        airspaces: dom.get_child("AIRSPACES").map(|e: &Element| {
+            e.children.iter().map(Airspace::try_from).collect()
+        }),
     };
 
     Ok(file)
-}
-
-fn convert_airspaces(airspaces: &Element) -> Vec<Airspace> {
-    airspaces.children.iter().map(|e| Airspace::try_from(e).unwrap()).collect()
 }
