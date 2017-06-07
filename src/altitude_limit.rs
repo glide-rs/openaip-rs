@@ -17,7 +17,7 @@ pub struct AltitudeLimit {
 
 impl AltitudeLimit {
     pub fn new(value: i32, unit: AltitudeUnit, reference: AltitudeReference) -> Self {
-        AltitudeLimit { reference: reference, unit: unit, value: value }
+        AltitudeLimit { reference, unit, value }
     }
 }
 
@@ -27,11 +27,11 @@ impl<'a> TryFrom<&'a Element> for AltitudeLimit {
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
         let alt = element.get_element("ALT")?;
 
-        Ok(AltitudeLimit {
-            reference: element.get_attr("REFERENCE")?.parse()?,
-            unit: alt.get_attr("UNIT")?.parse()?,
-            value: alt.get_text()?.parse()?,
-        })
+        let reference = element.get_attr("REFERENCE")?.parse()?;
+        let unit = alt.get_attr("UNIT")?.parse()?;
+        let value = alt.get_text()?.parse()?;
+
+        Ok(AltitudeLimit { reference, unit, value })
     }
 }
 
