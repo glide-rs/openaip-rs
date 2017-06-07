@@ -14,11 +14,12 @@ use types::*;
 pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
     let dom = Element::parse(r)?;
     if dom.name != "OPENAIP" {
-        // error
+        return Err(Error::MissingOpenAipElement);
     }
 
-    if dom.attributes.get("DATAFORMAT").unwrap() != "1.1" {
-        // error
+    let data_format_version = dom.attributes.get("DATAFORMAT").unwrap();
+    if data_format_version != "1.1" {
+        return Err(Error::IncompatibleDataFormatVersion(data_format_version.clone()));
     }
 
     let file = OpenAipFile {

@@ -6,12 +6,18 @@ use xmltree;
 #[derive(Debug)]
 pub enum Error {
     Xml(xmltree::ParseError),
+    MissingOpenAipElement,
+    IncompatibleDataFormatVersion(String),
 }
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            Error::Xml(ref err) => write!(f, "XML error: {}", err),
+            Error::Xml(ref err) => err.fmt(f),
+            Error::MissingOpenAipElement => write!(f, "Missing <OPENAIP> element"),
+            Error::IncompatibleDataFormatVersion(ref version) => {
+                write!(f, "Incompatible DATAFORMAT version: {}", version)
+            },
         }
     }
 }
@@ -20,12 +26,15 @@ impl error::Error for Error {
     fn description(&self) -> &str {
         match *self {
             Error::Xml(ref err) => err.description(),
+            Error::MissingOpenAipElement => "Missing <OPENAIP> element",
+            Error::IncompatibleDataFormatVersion(..) => "Incompatible DATAFORMAT version",
         }
     }
 
     fn cause(&self) -> Option<&error::Error> {
         match *self {
             Error::Xml(ref err) => Some(err),
+            _ => None,
         }
     }
 }
