@@ -29,7 +29,7 @@ impl<'a> TryFrom<&'a Element> for Airspace {
 
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
         Ok(Airspace {
-            category: element.get_attr("CATEGORY")?.parse().unwrap(),
+            category: element.get_attr("CATEGORY")?.parse()?,
             version: element.get_child("VERSION").unwrap().text.as_ref().unwrap().clone(),
             id: element.get_child("ID").unwrap().text.as_ref().unwrap().clone(),
             country: element.get_child("COUNTRY").unwrap().text.as_ref().unwrap().clone(),
@@ -65,9 +65,9 @@ pub enum Category {
 }
 
 impl FromStr for Category {
-    type Err = ();
+    type Err = Error;
 
-    fn from_str(s: &str) -> Result<Self, ()> {
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "A" => Ok(Category::A),
             "B" => Ok(Category::B),
@@ -88,7 +88,7 @@ impl FromStr for Category {
             "TMZ" => Ok(Category::TMZ),
             "UIR" => Ok(Category::UIR),
             "WAVE" => Ok(Category::Wave),
-            _ => Err(()),
+            _ => Err(Error::UnknownCategory(s.to_string())),
         }
     }
 }

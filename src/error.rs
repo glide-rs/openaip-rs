@@ -9,6 +9,7 @@ pub enum Error {
     MissingElement(&'static str),
     MissingAttribute(&'static str),
     IncompatibleDataFormatVersion(String),
+    UnknownCategory(String),
 }
 
 impl fmt::Display for Error {
@@ -20,6 +21,7 @@ impl fmt::Display for Error {
             Error::IncompatibleDataFormatVersion(ref version) => {
                 write!(f, "Incompatible DATAFORMAT version: {}", version)
             },
+            Error::UnknownCategory(ref s) => write!(f, "Unknown airspace category: {}", s),
         }
     }
 }
@@ -31,6 +33,7 @@ impl error::Error for Error {
             Error::MissingElement(..) => "Missing element",
             Error::MissingAttribute(..) => "Missing attribute",
             Error::IncompatibleDataFormatVersion(..) => "Incompatible DATAFORMAT version",
+            Error::UnknownCategory(..) => "Unknown airspace category",
         }
     }
 
