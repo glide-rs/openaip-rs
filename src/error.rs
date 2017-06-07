@@ -10,6 +10,7 @@ pub enum Error {
     InvalidNumber(num::ParseFloatError),
     MissingElement(&'static str),
     MissingAttribute(&'static str),
+    MissingText,
     IncompatibleDataFormatVersion(String),
     UnknownCategory(String),
     InvalidPoint,
@@ -22,6 +23,7 @@ impl fmt::Display for Error {
             Error::InvalidNumber(ref err) => err.fmt(f),
             Error::MissingElement(ref name) => write!(f, "Missing <{}> element", name),
             Error::MissingAttribute(ref name) => write!(f, "Missing {} attribute", name),
+            Error::MissingText => write!(f, "Missing element text"),
             Error::IncompatibleDataFormatVersion(ref version) => {
                 write!(f, "Incompatible DATAFORMAT version: {}", version)
             },
@@ -38,6 +40,7 @@ impl error::Error for Error {
             Error::InvalidNumber(ref err) => err.description(),
             Error::MissingElement(..) => "Missing element",
             Error::MissingAttribute(..) => "Missing attribute",
+            Error::MissingText => "Missing element text",
             Error::IncompatibleDataFormatVersion(..) => "Incompatible DATAFORMAT version",
             Error::UnknownCategory(..) => "Unknown airspace category",
             Error::InvalidPoint => "Invalid point",
