@@ -10,12 +10,19 @@ use Error;
 #[derive(Debug)]
 pub struct Airspace {
     pub category: Category,
+    /// An openAIP specific value that represents the git commit ID that included this airspace
     pub version: String,
+    /// An openAIP specific value that represents the internal ID of this airspace
     pub id: String,
+    /// The airspace's ISO 3166-1 alpha-2 country code
     pub country: String,
+    /// The airspace name
     pub name: String,
+    /// The airspace upper ceiling
     pub top: AltitudeLimit,
+    /// The airspace lower ceiling
     pub bottom: AltitudeLimit,
+    /// The airspace geometry element
     pub geometry: Geometry,
 }
 

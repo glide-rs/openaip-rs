@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use Error;
 
+/// `Feet` or `FlightLevel`
 #[derive(Eq, PartialEq, Debug)]
 pub enum AltitudeUnit { Feet, FlightLevel }
 

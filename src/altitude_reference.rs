@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use Error;
 
+/// `GND` (ground), `MSL` (mean sea level) or `STD` (standard atmosphere)
 #[derive(Eq, PartialEq, Debug)]
 pub enum AltitudeReference {
     /// Ground

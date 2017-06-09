@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use error::Error;
 
+/// Airspace category (e.g. `C`, `CTR`, `Restricted`, ...)
 #[derive(Eq, PartialEq, Debug)]
 pub enum Category {
     A,

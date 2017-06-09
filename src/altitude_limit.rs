@@ -8,6 +8,15 @@ use AltitudeReference;
 use Error;
 use try_from::TryFrom;
 
+/// # Examples
+///
+/// ```
+/// # use openaip::{AltitudeLimit, AltitudeReference, AltitudeUnit};
+/// #
+/// let limit1 = AltitudeLimit::new(4500, AltitudeUnit::Feet, AltitudeReference::MSL);
+///
+/// let limit2 = AltitudeLimit::new(65, AltitudeUnit::FlightLevel, AltitudeReference::STD);
+/// ```
 #[derive(Debug)]
 pub struct AltitudeLimit {
     pub reference: AltitudeReference,
