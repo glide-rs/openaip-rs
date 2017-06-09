@@ -1,9 +1,9 @@
 #[macro_use]
 extern crate approx;
 
-extern crate openaip_parser;
+extern crate openaip;
 
-use openaip_parser::{
+use openaip::{
     parse,
     Airspace,
     AltitudeReference,

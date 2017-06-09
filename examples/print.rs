@@ -1,10 +1,10 @@
-extern crate openaip_parser;
+extern crate openaip;
 
 use std::env;
 use std::fs::File;
 use std::io::BufReader;
 
-use openaip_parser::parse;
+use openaip::parse;
 
 fn main() {
     let args: Vec<_> = env::args().collect();

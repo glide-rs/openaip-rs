@@ -19,7 +19,7 @@ impl FromStr for AltitudeReference {
     ///
     /// ```
     /// # use std::str::FromStr;
-    /// # use openaip_parser::AltitudeReference;
+    /// # use openaip::AltitudeReference;
     /// #
     /// assert_eq!(AltitudeReference::from_str("GND").unwrap(), AltitudeReference::GND);
     /// assert_eq!(AltitudeReference::from_str("STD").unwrap(), AltitudeReference::STD);

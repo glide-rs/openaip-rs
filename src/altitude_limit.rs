@@ -39,7 +39,7 @@ impl fmt::Display for AltitudeLimit {
     /// # Examples
     ///
     /// ```
-    /// # use openaip_parser::{AltitudeLimit, AltitudeReference, AltitudeUnit};
+    /// # use openaip::{AltitudeLimit, AltitudeReference, AltitudeUnit};
     /// #
     /// let limit = AltitudeLimit::new(4500, AltitudeUnit::Feet, AltitudeReference::MSL);
     /// assert_eq!(format!("{}", limit), "4500ft MSL");

@@ -12,7 +12,7 @@ impl FromStr for AltitudeUnit {
     ///
     /// ```
     /// # use std::str::FromStr;
-    /// # use openaip_parser::AltitudeUnit;
+    /// # use openaip::AltitudeUnit;
     /// #
     /// assert_eq!(AltitudeUnit::from_str("F").unwrap(), AltitudeUnit::Feet);
     /// assert_eq!(AltitudeUnit::from_str("FL").unwrap(), AltitudeUnit::FlightLevel);

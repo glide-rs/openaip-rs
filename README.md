@@ -1,2 +1,2 @@
-# openaip-parser-rs
+# openaip-rs
 OpenAIP file parser for Rust
