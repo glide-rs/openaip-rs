@@ -25,8 +25,8 @@ impl fmt::Display for Error {
             Error::Xml(ref err) => err.fmt(f),
             Error::InvalidIntNumber(ref err) => err.fmt(f),
             Error::InvalidFloatNumber(ref err) => err.fmt(f),
-            Error::MissingElement(ref name) => write!(f, "Missing <{}> element", name),
-            Error::MissingAttribute(ref name) => write!(f, "Missing {} attribute", name),
+            Error::MissingElement(name) => write!(f, "Missing <{}> element", name),
+            Error::MissingAttribute(name) => write!(f, "Missing {} attribute", name),
             Error::MissingText => write!(f, "Missing element text"),
             Error::IncompatibleDataFormatVersion(ref version) => {
                 write!(f, "Incompatible DATAFORMAT version: {}", version)

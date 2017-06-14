@@ -42,7 +42,7 @@ fn it_works() {
     let file = result.unwrap();
     assert!(file.airspaces.is_some());
 
-    let ref airspaces = file.airspaces.as_ref().unwrap();
+    let airspaces = file.airspaces.as_ref().unwrap();
     assert_eq!(airspaces.len(), 1);
 
     let airspace: &Airspace = airspaces[0].as_ref().unwrap();

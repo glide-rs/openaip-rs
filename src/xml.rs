@@ -10,10 +10,10 @@ pub trait ElementExt {
 
 impl ElementExt for Element {
     fn get_attr(&self, k: &'static str) -> Result<&String, Error> {
-        self.attributes.get(k).ok_or(Error::MissingAttribute(k))
+        self.attributes.get(k).ok_or_else(|| Error::MissingAttribute(k))
     }
     fn get_element(&self, k: &'static str) -> Result<&Element, Error> {
-        self.get_child(k).ok_or(Error::MissingElement(k))
+        self.get_child(k).ok_or_else(|| Error::MissingElement(k))
     }
     fn get_text(&self) -> Result<&String, Error> {
         self.text.as_ref().ok_or(Error::MissingText)
