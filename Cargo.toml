@@ -13,7 +13,7 @@ travis-ci = { repository = "Turbo87/openaip-rs", branch = "master" }
 
 [dependencies]
 thiserror = "1.0"
-xmltree = "0.8.0"
+xmltree = "0.10.2"
 
 [dev-dependencies]
 approx = "0.3.0"
