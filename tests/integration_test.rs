@@ -3,14 +3,7 @@ extern crate approx;
 
 extern crate openaip;
 
-use openaip::{
-    parse,
-    Airspace,
-    AltitudeReference,
-    AltitudeUnit,
-    Category,
-    Geometry,
-};
+use openaip::{parse, Airspace, AltitudeReference, AltitudeUnit, Category, Geometry};
 
 #[test]
 fn it_works() {
@@ -69,6 +62,6 @@ fn it_works() {
             let second_point = polygon[1];
             assert_relative_eq!(second_point.longitude, 9.3727777777778);
             assert_relative_eq!(second_point.latitude, 48.565555555556);
-        },
+        }
     }
 }

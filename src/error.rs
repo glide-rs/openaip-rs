@@ -30,9 +30,11 @@ impl fmt::Display for Error {
             Error::MissingText => write!(f, "Missing element text"),
             Error::IncompatibleDataFormatVersion(ref version) => {
                 write!(f, "Incompatible DATAFORMAT version: {}", version)
-            },
+            }
             Error::UnknownCategory(ref s) => write!(f, "Unknown airspace category: {}", s),
-            Error::UnknownAltitudeReference(ref s) => write!(f, "Unknown altitude reference: {}", s),
+            Error::UnknownAltitudeReference(ref s) => {
+                write!(f, "Unknown altitude reference: {}", s)
+            }
             Error::UnknownAltitudeUnit(ref s) => write!(f, "Unknown altitude unit: {}", s),
             Error::InvalidPoint => write!(f, "Invalid point"),
         }

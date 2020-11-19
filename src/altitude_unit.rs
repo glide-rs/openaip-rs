@@ -4,7 +4,10 @@ use Error;
 
 /// `Feet` or `FlightLevel`
 #[derive(Eq, PartialEq, Debug)]
-pub enum AltitudeUnit { Feet, FlightLevel }
+pub enum AltitudeUnit {
+    Feet,
+    FlightLevel,
+}
 
 impl FromStr for AltitudeUnit {
     type Err = Error;

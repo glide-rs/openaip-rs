@@ -1,9 +1,9 @@
 use xmltree::Element;
 
-use Point;
-use Error;
 use try_from::TryFrom;
 use xml::ElementExt;
+use Error;
+use Point;
 
 #[derive(Debug)]
 pub enum Geometry {
@@ -14,7 +14,8 @@ impl<'a> TryFrom<&'a Element> for Geometry {
     type Err = Error;
 
     fn try_from(element: &Element) -> Result<Self, Self::Err> {
-        let points: Result<Vec<_>, _> = element.get_element("POLYGON")?
+        let points: Result<Vec<_>, _> = element
+            .get_element("POLYGON")?
             .get_text()?
             .split(',')
             .map(|s| s.parse())

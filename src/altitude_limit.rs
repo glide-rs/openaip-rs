@@ -2,11 +2,11 @@ use std::fmt;
 
 use xmltree::Element;
 
-use xml::ElementExt;
-use AltitudeUnit;
-use AltitudeReference;
-use Error;
 use try_from::TryFrom;
+use xml::ElementExt;
+use AltitudeReference;
+use AltitudeUnit;
+use Error;
 
 /// # Examples
 ///
@@ -26,7 +26,11 @@ pub struct AltitudeLimit {
 
 impl AltitudeLimit {
     pub fn new(value: i32, unit: AltitudeUnit, reference: AltitudeReference) -> Self {
-        AltitudeLimit { reference, unit, value }
+        AltitudeLimit {
+            reference,
+            unit,
+            value,
+        }
     }
 }
 
@@ -40,7 +44,11 @@ impl<'a> TryFrom<&'a Element> for AltitudeLimit {
         let unit = alt.get_attr("UNIT")?.parse()?;
         let value = alt.get_text()?.parse()?;
 
-        Ok(AltitudeLimit { reference, unit, value })
+        Ok(AltitudeLimit {
+            reference,
+            unit,
+            value,
+        })
     }
 }
 
