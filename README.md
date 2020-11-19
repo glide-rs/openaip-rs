@@ -1,9 +1,6 @@
 openaip-rs
 ==============================================================================
 
-[![crates.io](https://img.shields.io/crates/v/openaip.svg)](https://crates.io/crates/openaip)
-[![Build Status](https://travis-ci.org/Turbo87/openaip-rs.svg?branch=master)](https://travis-ci.org/Turbo87/openaip-rs)
-
 [OpenAIP](https://www.openaip.net/) file parser for [Rust](https://www.rust-lang.org/).
 
 
