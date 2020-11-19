@@ -1,3 +1,5 @@
+#![allow(deprecated, bare_trait_objects)]
+
 use std::error;
 use std::fmt;
 use std::num;
