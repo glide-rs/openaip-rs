@@ -12,7 +12,7 @@ mod xml;
 use std::convert::TryFrom;
 use std::io::Read;
 
-use xmltree::Element;
+use xmltree::{Element, XMLNode};
 
 pub use crate::airspace::Airspace;
 pub use crate::altitude_limit::AltitudeLimit;
@@ -73,9 +73,13 @@ pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
     }
 
     let file = OpenAipFile {
-        airspaces: dom
-            .get_child("AIRSPACES")
-            .map(|e: &Element| e.children.iter().map(Airspace::try_from).collect()),
+        airspaces: dom.get_child("AIRSPACES").map(|e: &Element| {
+            e.children
+                .iter()
+                .filter_map(XMLNode::as_element)
+                .map(Airspace::try_from)
+                .collect()
+        }),
     };
 
     Ok(file)

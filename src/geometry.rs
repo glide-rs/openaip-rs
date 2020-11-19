@@ -16,7 +16,8 @@ impl<'a> TryFrom<&'a Element> for Geometry {
     fn try_from(element: &Element) -> Result<Self, Self::Error> {
         let points: Result<Vec<_>, _> = element
             .get_element("POLYGON")?
-            .get_text()?
+            .get_text()
+            .ok_or(Error::MissingText)?
             .split(',')
             .map(|s| s.parse())
             .collect();
