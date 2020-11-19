@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use error::Error;
+use crate::error::Error;
 
 /// Airspace category (e.g. `C`, `CTR`, `Restricted`, ...)
 #[derive(Eq, PartialEq, Debug)]

@@ -16,18 +16,18 @@ use std::io::Read;
 
 use xmltree::Element;
 
-pub use airspace::Airspace;
-pub use altitude_limit::AltitudeLimit;
-pub use altitude_reference::AltitudeReference;
-pub use altitude_unit::AltitudeUnit;
-pub use category::Category;
-pub use error::Error;
-pub use file::File;
-use file::File as OpenAipFile;
-pub use geometry::Geometry;
-pub use point::Point;
-use try_from::TryFrom;
-use xml::ElementExt;
+pub use crate::airspace::Airspace;
+pub use crate::altitude_limit::AltitudeLimit;
+pub use crate::altitude_reference::AltitudeReference;
+pub use crate::altitude_unit::AltitudeUnit;
+pub use crate::category::Category;
+pub use crate::error::Error;
+pub use crate::file::File;
+use crate::file::File as OpenAipFile;
+pub use crate::geometry::Geometry;
+pub use crate::point::Point;
+use crate::try_from::TryFrom;
+use crate::xml::ElementExt;
 
 /// Parses an XML document into an `OpenAipFile` instance.
 ///

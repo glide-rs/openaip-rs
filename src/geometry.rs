@@ -1,9 +1,9 @@
 use xmltree::Element;
 
-use try_from::TryFrom;
-use xml::ElementExt;
-use Error;
-use Point;
+use crate::try_from::TryFrom;
+use crate::xml::ElementExt;
+use crate::Error;
+use crate::Point;
 
 #[derive(Debug)]
 pub enum Geometry {

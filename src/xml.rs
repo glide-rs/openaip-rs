@@ -1,6 +1,6 @@
 use xmltree::Element;
 
-use error::Error;
+use crate::error::Error;
 
 pub trait ElementExt {
     fn get_attr(&self, k: &'static str) -> Result<&String, Error>;

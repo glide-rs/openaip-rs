@@ -1,11 +1,11 @@
 use xmltree::Element;
 
-use try_from::TryFrom;
-use xml::ElementExt;
-use AltitudeLimit;
-use Category;
-use Error;
-use Geometry;
+use crate::try_from::TryFrom;
+use crate::xml::ElementExt;
+use crate::AltitudeLimit;
+use crate::Category;
+use crate::Error;
+use crate::Geometry;
 
 #[derive(Debug)]
 pub struct Airspace {

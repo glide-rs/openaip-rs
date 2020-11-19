@@ -1,7 +1,7 @@
 use std::fmt;
 use std::str::FromStr;
 
-use Error;
+use crate::Error;
 
 #[derive(Copy, Clone)]
 pub struct Point {

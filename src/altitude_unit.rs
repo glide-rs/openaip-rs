@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use Error;
+use crate::Error;
 
 /// `Feet` or `FlightLevel`
 #[derive(Eq, PartialEq, Debug)]
