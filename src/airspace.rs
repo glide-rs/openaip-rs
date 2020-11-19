@@ -32,10 +32,26 @@ impl<'a> TryFrom<&'a Element> for Airspace {
     fn try_from(element: &Element) -> Result<Self, Self::Error> {
         Ok(Airspace {
             category: element.get_attr("CATEGORY")?.parse()?,
-            version: element.get_element("VERSION")?.get_text()?.clone(),
-            id: element.get_element("ID")?.get_text()?.clone(),
-            country: element.get_element("COUNTRY")?.get_text()?.clone(),
-            name: element.get_element("NAME")?.get_text()?.clone(),
+            version: element
+                .get_element("VERSION")?
+                .get_text()
+                .ok_or(Error::MissingText)?
+                .to_string(),
+            id: element
+                .get_element("ID")?
+                .get_text()
+                .ok_or(Error::MissingText)?
+                .to_string(),
+            country: element
+                .get_element("COUNTRY")?
+                .get_text()
+                .ok_or(Error::MissingText)?
+                .to_string(),
+            name: element
+                .get_element("NAME")?
+                .get_text()
+                .ok_or(Error::MissingText)?
+                .to_string(),
             top: AltitudeLimit::try_from(element.get_element("ALTLIMIT_TOP")?)?,
             bottom: AltitudeLimit::try_from(element.get_element("ALTLIMIT_BOTTOM")?)?,
             geometry: Geometry::try_from(element.get_element("GEOMETRY")?)?,
