@@ -70,7 +70,7 @@ impl fmt::Display for AltitudeLimit {
     /// let limit = AltitudeLimit::new(0, AltitudeUnit::Feet, AltitudeReference::GND);
     /// assert_eq!(format!("{}", limit), "GND");
     /// ```
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         if self.unit == AltitudeUnit::FlightLevel {
             write!(f, "FL{}", self.value)
         } else if self.reference == AltitudeReference::GND && self.value == 0 {

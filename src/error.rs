@@ -22,7 +22,7 @@ pub enum Error {
 }
 
 impl fmt::Display for Error {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match *self {
             Error::Xml(ref err) => err.fmt(f),
             Error::InvalidIntNumber(ref err) => err.fmt(f),
