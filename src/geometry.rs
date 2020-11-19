@@ -1,6 +1,6 @@
+use std::convert::TryFrom;
 use xmltree::Element;
 
-use crate::try_from::TryFrom;
 use crate::xml::ElementExt;
 use crate::Error;
 use crate::Point;
@@ -11,9 +11,9 @@ pub enum Geometry {
 }
 
 impl<'a> TryFrom<&'a Element> for Geometry {
-    type Err = Error;
+    type Error = Error;
 
-    fn try_from(element: &Element) -> Result<Self, Self::Err> {
+    fn try_from(element: &Element) -> Result<Self, Self::Error> {
         let points: Result<Vec<_>, _> = element
             .get_element("POLYGON")?
             .get_text()?

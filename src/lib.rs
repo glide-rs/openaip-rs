@@ -7,9 +7,9 @@ mod error;
 mod file;
 mod geometry;
 mod point;
-mod try_from;
 mod xml;
 
+use std::convert::TryFrom;
 use std::io::Read;
 
 use xmltree::Element;
@@ -24,7 +24,6 @@ pub use crate::file::File;
 use crate::file::File as OpenAipFile;
 pub use crate::geometry::Geometry;
 pub use crate::point::Point;
-use crate::try_from::TryFrom;
 use crate::xml::ElementExt;
 
 /// Parses an XML document into an `OpenAipFile` instance.

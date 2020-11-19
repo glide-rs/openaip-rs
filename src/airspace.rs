@@ -1,6 +1,6 @@
+use std::convert::TryFrom;
 use xmltree::Element;
 
-use crate::try_from::TryFrom;
 use crate::xml::ElementExt;
 use crate::AltitudeLimit;
 use crate::Category;
@@ -27,9 +27,9 @@ pub struct Airspace {
 }
 
 impl<'a> TryFrom<&'a Element> for Airspace {
-    type Err = Error;
+    type Error = Error;
 
-    fn try_from(element: &Element) -> Result<Self, Self::Err> {
+    fn try_from(element: &Element) -> Result<Self, Self::Error> {
         Ok(Airspace {
             category: element.get_attr("CATEGORY")?.parse()?,
             version: element.get_element("VERSION")?.get_text()?.clone(),

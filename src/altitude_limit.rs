@@ -1,8 +1,8 @@
+use std::convert::TryFrom;
 use std::fmt;
 
 use xmltree::Element;
 
-use crate::try_from::TryFrom;
 use crate::xml::ElementExt;
 use crate::AltitudeReference;
 use crate::AltitudeUnit;
@@ -35,9 +35,9 @@ impl AltitudeLimit {
 }
 
 impl<'a> TryFrom<&'a Element> for AltitudeLimit {
-    type Err = Error;
+    type Error = Error;
 
-    fn try_from(element: &Element) -> Result<Self, Self::Err> {
+    fn try_from(element: &Element) -> Result<Self, Self::Error> {
         let alt = element.get_element("ALT")?;
 
         let reference = element.get_attr("REFERENCE")?.parse()?;
