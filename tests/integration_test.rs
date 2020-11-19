@@ -1,8 +1,6 @@
 #[macro_use]
 extern crate approx;
 
-extern crate openaip;
-
 use openaip::{parse, Airspace, AltitudeReference, AltitudeUnit, Category, Geometry};
 
 #[test]

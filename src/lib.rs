@@ -1,5 +1,3 @@
-extern crate xmltree;
-
 mod airspace;
 mod altitude_limit;
 mod altitude_reference;
