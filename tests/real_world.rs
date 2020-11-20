@@ -2,9 +2,9 @@ use openaip::parse;
 
 #[test]
 fn it_works() {
-    let bytes = include_bytes!("data/de_asp.aip");
+    let str = include_str!("data/de_asp.aip");
 
-    let result = parse(bytes.as_ref());
+    let result = parse(str);
     assert!(result.is_ok());
 
     let file = result.unwrap();

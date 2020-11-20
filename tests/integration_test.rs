@@ -27,7 +27,7 @@ fn it_works() {
 </AIRSPACES>
 </OPENAIP>
 "##;
-    let result = parse(data.as_bytes());
+    let result = parse(data);
     assert!(result.is_ok());
 
     let file = result.unwrap();

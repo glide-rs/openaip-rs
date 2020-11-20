@@ -10,9 +10,8 @@ mod point;
 mod xml;
 
 use std::convert::TryFrom;
-use std::io::Read;
 
-use xmltree::{Element, XMLNode};
+use minidom::{Element, NSChoice};
 
 pub use crate::airspace::Airspace;
 pub use crate::altitude_limit::AltitudeLimit;
@@ -56,30 +55,26 @@ use crate::xml::ElementExt;
 /// </OPENAIP>
 /// "##;
 ///
-/// let result = parse(data.as_bytes());
+/// let result = parse(data);
 /// assert!(result.is_ok());
 /// ```
-pub fn parse<R: Read>(r: R) -> Result<OpenAipFile, Error> {
-    let dom = Element::parse(r)?;
-    if dom.name != "OPENAIP" {
+pub fn parse(str: &str) -> Result<OpenAipFile, Error> {
+    let dom = str.parse::<Element>()?;
+    if dom.name() != "OPENAIP" {
         return Err(Error::MissingElement("OPENAIP"));
     }
 
     let data_format_version = dom.get_attr("DATAFORMAT")?;
     if data_format_version != "1.1" {
         return Err(Error::IncompatibleDataFormatVersion(
-            data_format_version.clone(),
+            data_format_version.to_string(),
         ));
     }
 
     let file = OpenAipFile {
-        airspaces: dom.get_child("AIRSPACES").map(|e: &Element| {
-            e.children
-                .iter()
-                .filter_map(XMLNode::as_element)
-                .map(Airspace::try_from)
-                .collect()
-        }),
+        airspaces: dom
+            .get_child("AIRSPACES", NSChoice::None)
+            .map(|e| e.children().map(Airspace::try_from).collect()),
     };
 
     Ok(file)

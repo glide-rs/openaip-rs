@@ -1,7 +1,7 @@
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error(transparent)]
-    Xml(#[from] xmltree::ParseError),
+    Xml(#[from] minidom::Error),
     #[error(transparent)]
     InvalidIntNumber(#[from] std::num::ParseIntError),
     #[error(transparent)]
