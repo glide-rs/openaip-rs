@@ -1,7 +1,7 @@
 use std::convert::TryFrom;
 use std::fmt;
 
-use xmltree::Element;
+use minidom::Element;
 
 use crate::xml::ElementExt;
 use crate::AltitudeReference;
@@ -42,7 +42,7 @@ impl<'a> TryFrom<&'a Element> for AltitudeLimit {
 
         let reference = element.get_attr("REFERENCE")?.parse()?;
         let unit = alt.get_attr("UNIT")?.parse()?;
-        let value = alt.get_text().ok_or(Error::MissingText)?.parse()?;
+        let value = alt.text().parse()?;
 
         Ok(AltitudeLimit {
             reference,

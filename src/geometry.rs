@@ -1,5 +1,5 @@
+use minidom::Element;
 use std::convert::TryFrom;
-use xmltree::Element;
 
 use crate::xml::ElementExt;
 use crate::Error;
@@ -16,8 +16,7 @@ impl<'a> TryFrom<&'a Element> for Geometry {
     fn try_from(element: &Element) -> Result<Self, Self::Error> {
         let points: Result<Vec<_>, _> = element
             .get_element("POLYGON")?
-            .get_text()
-            .ok_or(Error::MissingText)?
+            .text()
             .split(',')
             .map(|s| s.parse())
             .collect();
