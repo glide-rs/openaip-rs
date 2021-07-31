@@ -13,12 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: 1.46.0
-          override: true
-          components: rustfmt, clippy
+      - name: Setup rust toolchain
+        run: |
+          rustup set profile minimal
+          rustup show
+          rustup component add rustfmt clippy
 
       - name: cargo fmt
         uses: actions-rs/cargo@v1
