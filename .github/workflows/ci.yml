@@ -7,44 +7,49 @@ on:
   pull_request:
 
 jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup set profile minimal
+      - run: rustup show
+      - run: cargo check --all
+
+  bench:
+    name: Compile Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup set profile minimal
+      - run: rustup show
+      - run: cargo bench --no-run
+
   tests:
     name: Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: rustup set profile minimal
+      - run: rustup show
+      - run: cargo test --all
 
-      - name: Setup rust toolchain
-        run: |
-          rustup set profile minimal
-          rustup show
-          rustup component add rustfmt clippy
+  fmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup set profile minimal
+      - run: rustup show
+      - run: rustup component add rustfmt
+      - run: cargo fmt --all -- --check
 
-      - name: cargo fmt
-        uses: actions-rs/cargo@v1
-        with:
-            command: fmt
-            args: --all -- --check
-
-      - name: cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --all
-
-      - name: cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --all
-
-      - name: cargo clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: -- -D warnings
-
-      - name: cargo bench --no-run
-        uses: actions-rs/cargo@v1
-        with:
-          command: bench
-          args: --no-run
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: rustup set profile minimal
+      - run: rustup show
+      - run: rustup component add clippy
+      - run: cargo clippy --all -- -D warnings
