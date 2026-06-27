@@ -25,6 +25,9 @@ pub use crate::geometry::Geometry;
 pub use crate::point::Point;
 use crate::xml::ElementExt;
 
+/// The XML namespace used by openAIP exports.
+pub(crate) const OPENAIP_NAMESPACE: &str = "https://www.openaip.net";
+
 /// Parses an XML document into an `OpenAipFile` instance.
 ///
 /// # Examples
@@ -34,7 +37,7 @@ use crate::xml::ElementExt;
 /// #
 /// let data: &'static str = r##"
 /// <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-/// <OPENAIP VERSION="d9192d6fa44fc5a0ecc3d84fd84d13e091df511c" DATAFORMAT="1.1">
+/// <OPENAIP xmlns="https://www.openaip.net" VERSION="d9192d6fa44fc5a0ecc3d84fd84d13e091df511c" DATAFORMAT="1.1">
 ///   <AIRSPACES>
 ///     <ASP CATEGORY="WAVE">
 ///       <VERSION>d59ffb1bd865bc7307dbb3a191f4d00dfef5529f</VERSION>
@@ -59,7 +62,9 @@ use crate::xml::ElementExt;
 /// assert!(result.is_ok());
 /// ```
 pub fn parse(str: &str) -> Result<OpenAipFile, Error> {
-    let dom = str.parse::<Element>()?;
+    // The XML declaration must be the first thing in the document; the parser
+    // rejects any leading whitespace before it, so trim it first.
+    let dom = str.trim_start().parse::<Element>()?;
     if dom.name() != "OPENAIP" {
         return Err(Error::MissingElement("OPENAIP"));
     }
@@ -73,7 +78,7 @@ pub fn parse(str: &str) -> Result<OpenAipFile, Error> {
 
     let file = OpenAipFile {
         airspaces: dom
-            .get_child("AIRSPACES", NSChoice::None)
+            .get_child("AIRSPACES", NSChoice::OneOf(OPENAIP_NAMESPACE))
             .map(|e| e.children().map(Airspace::try_from).collect()),
     };
 

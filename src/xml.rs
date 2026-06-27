@@ -13,7 +13,7 @@ impl ElementExt for Element {
     }
 
     fn get_element(&self, k: &'static str) -> Result<&Element, Error> {
-        self.get_child(k, NSChoice::None)
+        self.get_child(k, NSChoice::OneOf(crate::OPENAIP_NAMESPACE))
             .ok_or_else(|| Error::MissingElement(k))
     }
 }

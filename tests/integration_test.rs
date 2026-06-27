@@ -7,7 +7,7 @@ use openaip::{parse, Airspace, AltitudeReference, AltitudeUnit, Category, Geomet
 fn it_works() {
     let data: &'static str = r##"
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<OPENAIP VERSION="d9192d6fa44fc5a0ecc3d84fd84d13e091df511c" DATAFORMAT="1.1">
+<OPENAIP xmlns="https://www.openaip.net" VERSION="d9192d6fa44fc5a0ecc3d84fd84d13e091df511c" DATAFORMAT="1.1">
 <AIRSPACES>
 <ASP CATEGORY="WAVE">
   <VERSION>d59ffb1bd865bc7307dbb3a191f4d00dfef5529f</VERSION>
